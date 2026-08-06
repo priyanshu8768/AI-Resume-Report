@@ -83,23 +83,18 @@ const generateResumePdfController = async (req,res) =>{
 
 
 
-    const pdfBuffer = await generateResumePdf({
+    const htmlContent = await generateResumePdf({
         resume,
         selfDescription,
         jobDescription  
     })
 
-
-
     res.set({
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename=resume_${interviewReportId}.pdf`,
-        
+        'Content-Type': 'text/html',
+        'Content-Disposition': `attachment; filename="resume_${interviewReportId}.html"`,
     });
 
-    // send raw PDF bytes so the client (browser/Postman) can render/download it
-    
-    res.status(200).send(pdfBuffer);
+    res.status(200).send(htmlContent);
 }
 
 export  {generateInterviewReportController, getInterviewReportController, getAllInterviewReportsController, generateResumePdfController};

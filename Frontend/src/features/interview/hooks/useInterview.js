@@ -2,6 +2,7 @@
 import {generateInterviewReport,getInterviewReportById, getAllInterviewReports ,getResumePdf} from "../services/interview.api.js";
 import { useContext} from "react";
 import {InterviewContext} from "../interview.context.jsx";
+import html2pdf from 'html2pdf.js';
 
 export const useInterview = () => {
     
@@ -70,15 +71,17 @@ export const useInterview = () => {
         let response = null 
         try{
             response = await getResumePdf(interviewReportId);
-            const blob = response instanceof Blob ? response : new Blob([response], { type: 'application/pdf' });
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `resume_${interviewReportId}.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setTimeout(() => window.URL.revokeObjectURL(url), 1000);
+            
+            const opt = {
+                margin: 10,
+                filename: `resume_${interviewReportId}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            await html2pdf().set(opt).from(response).save();
+            
         } catch (error) {
             console.error('Failed to download resume PDF:', error);
             throw error;

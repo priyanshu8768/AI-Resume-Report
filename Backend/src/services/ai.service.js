@@ -1,6 +1,4 @@
 import { GoogleGenAI, Type } from "@google/genai";
-import puppeteer from "puppeteer";
-
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GENAI_API_KEY
@@ -107,17 +105,6 @@ const generateInterviewReport = async ({ resume, selfDescription, jobDescription
 
 
 
-const generatePdfFromHtml = async (htmlContent) => {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-    const page = await browser.newPage();
-    await page.setViewport({ width: 1200, height: 1600 });
-    await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-    await page.emulateMediaType('screen');
-    await new Promise((resolve) => setTimeout(resolve, 250));
-    const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
-    await browser.close();
-    return pdfBuffer;
-}
 
 
 const generateResumePdf = async ({resume, selfDescription , jobDescription}) => {
@@ -150,8 +137,7 @@ const generateResumePdf = async ({resume, selfDescription , jobDescription}) => 
 
     const resumeHtml = JSON.parse(response.text)
 
-    const pdfBuffer = await generatePdfFromHtml(resumeHtml.html)
-    return pdfBuffer;
+    return resumeHtml.html;
 
 };
 
