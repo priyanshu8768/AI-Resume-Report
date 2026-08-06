@@ -14,14 +14,22 @@ const app = express();
 app.use(express.json());
 app.use(cookieparser());
 app.use(cors({
-    origin: process.env.Frontend_URL,
-    credentials:true
+    origin: (origin, callback) => {
+        const allowed = [
+            'http://localhost:5173',
+            process.env.Frontend_URL
+        ].filter(Boolean);
+        if (!origin || allowed.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
 }))
 //all routes here
 app.use("/api/auth", authRouter);
 app.use("/api/interview", interviewRouter);
-
-
-
+app.set('trust proxy', 1);
 
 export default app;
