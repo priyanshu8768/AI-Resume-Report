@@ -20,7 +20,7 @@ A full-stack AI-driven interview preparation platform with a React/Vite frontend
 
 ## File structure
 
-
+\`\`\`
 / (project root)
 ├── Backend/
 │   ├── package.json
@@ -69,7 +69,7 @@ A full-stack AI-driven interview preparation platform with a React/Vite frontend
 │       │       └── style/
 │       │           ├── home.scss
 │       │           └── interview.scss
-
+\`\`\`
 
 ## Key design details
 
