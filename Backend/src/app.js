@@ -10,14 +10,15 @@ dotenv.config();
 
 const app = express();
 
+app.set('trust proxy', 1);
 
 app.use(express.json());
 app.use(cookieparser());
 app.use(cors({
     origin: (origin, callback) => {
         const allowed = [
+            process.env.Frontend_URL,
             'http://localhost:5173',
-            process.env.Frontend_URL
         ].filter(Boolean);
         if (!origin || allowed.includes(origin)) {
             callback(null, true);
@@ -26,10 +27,9 @@ app.use(cors({
         }
     },
     credentials: true,
-}))
+}));
 //all routes here
 app.use("/api/auth", authRouter);
 app.use("/api/interview", interviewRouter);
-app.set('trust proxy', 1);
 
 export default app;

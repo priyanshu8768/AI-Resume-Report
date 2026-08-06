@@ -26,11 +26,11 @@ const registerUser = async (req,res)=>{
     });
     await newUser.save();
 
-    const token = jwt.sign({id:newUser._id, username:newUser.username},process.env.JWT_SECRET,{expiresIn:'1d'}); 
+    const token = jwt.sign({id:newUser._id, username:newUser.username},process.env.JWT_SECRET,{expiresIn:'1d'});
 
     res.cookie('token', token, {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000,
     });
@@ -64,7 +64,7 @@ const loginUser = async (req,res)=>{
 
     res.cookie('token', token, {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000,
     });
@@ -88,7 +88,7 @@ const logoutUser = async (req,res)=>{
 
     res.clearCookie('token', {
         sameSite: 'none',
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
     });
 
     res.status(200).json({message:"user logout successfully"})
