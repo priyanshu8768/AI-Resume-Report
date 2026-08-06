@@ -37,7 +37,7 @@ const Login = ()=>{
                         type="email" id='email' name='email' placeholder='Enter Email Address' />
                     </div>
                     <div className="input-group">
-                        <label htmlFor="">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input
                         onChange={(e)=>{setPassword(e.target.value)}}
                          type="password" id='password' name='password' placeholder='Enter password' />
