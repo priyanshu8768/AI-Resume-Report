@@ -18,58 +18,7 @@ A full-stack AI-driven interview preparation platform with a React/Vite frontend
 - PDF: `pdf-parse` resume text extraction, Puppeteer HTML-to-PDF conversion
 - Dev tools: ESLint, dotenv, CORS, bcryptjs
 
-## File structure
 
-\`\`\`
-/ (project root)
-├── Backend/
-│   ├── package.json
-│   ├── package-lock.json
-│   ├── server.js
-│   ├── .env
-│   └── src/
-│       ├── app.js
-│       ├── config/database.js
-│       ├── controllers/
-│       │   ├── auth.controller.js
-│       │   └── interview.controller.js
-│       ├── middlewares/
-│       │   ├── auth.middleware.js
-│       │   ├── file.middleware.js
-│       │   └── rateLimit.middleware.js
-│       ├── models/
-│       │   ├── blacklist.model.js
-│       │   ├── interviewReport.model.js
-│       │   └── user.model.js
-│       └── services/
-│           ├── ai.service.js
-│           └── temp.js
-├── Frontend/
-│   ├── package.json
-│   ├── index.html
-│   └── src/
-│       ├── App.jsx
-│       ├── app.routes.jsx
-│       ├── main.jsx
-│       ├── style.scss
-│       ├── features/
-│       │   ├── auth/
-│       │   │   ├── auth.context.jsx
-│       │   │   ├── components/protected.jsx
-│       │   │   ├── hooks/useAuth.js
-│       │   │   ├── pages/Login.jsx
-│       │   │   ├── pages/Register.jsx
-│       │   │   └── services/auth.api.js
-│       │   └── interview/
-│       │       ├── interview.context.jsx
-│       │       ├── hooks/useInterview.js
-│       │       ├── pages/Home.jsx
-│       │       ├── pages/Interview.jsx
-│       │       ├── services/interview.api.js
-│       │       └── style/
-│       │           ├── home.scss
-│       │           └── interview.scss
-\`\`\`
 
 ## Key design details
 
