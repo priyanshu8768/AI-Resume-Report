@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const backendUrl = (import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000').replace(/\/$/, '');
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000', // Use the environment variable or fallback to localhost
+    baseURL: backendUrl,
     withCredentials: true, // Include cookies in requests
 })
 
@@ -12,11 +14,7 @@ export const generateInterviewReport = async ({ resumeFile, selfDescription, job
     formData.append('selfDescription', selfDescription);
     formData.append('jobDescription', jobDescription);
 
-    const response = await api.post('/api/interview/', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        }
-    });
+    const response = await api.post('/api/interview/', formData);
 
     return response.data
 }
