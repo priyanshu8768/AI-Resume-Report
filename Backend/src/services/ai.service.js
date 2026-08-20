@@ -119,11 +119,23 @@ const generateResumePdf = async ({resume, selfDescription , jobDescription}) => 
         },
     };    
     
-    const prompt = `Generate a resume for a candidate with the following details:
+    const prompt = `Generate a professional resume for a candidate with the following details:
     - Resume: ${resume}
     - Self description: ${selfDescription}
     - Job description: ${jobDescription}
-    the response should be a JSON object with a single field 'html' containing the HTML content of the resume. The HTML should be well-structured and formatted, suitable for conversion to a PDF using a library like Puppeteer.`
+    
+    The response must be a JSON object with a single field 'html' containing the HTML content of the resume. 
+    CRITICAL INSTRUCTIONS FOR HTML:
+    - The HTML MUST include inline CSS styles for ALL elements.
+    - Use a clean, professional font (e.g., Arial, Helvetica, sans-serif).
+    - Ensure all text color is strictly black (#000000) or dark gray (#333333) so it is easily readable.
+    - Set the background color to white (#ffffff).
+    - Use clear headings (h1, h2, h3) with appropriate sizing and bold font weights.
+    - CRITICAL: KEEP THE CONTENT CONCISE AND FORMATTING COMPACT SO IT STRICTLY FITS ON A SINGLE PAGE.
+    - Use smaller font sizes (e.g., 10px to 11px for body text, 12px to 14px for headings).
+    - Use tight margins and padding (e.g., 2px to 5px) to structure the sections compactly.
+    - Keep descriptions brief and limit bullet points to save space.
+    - The HTML must be well-structured and formatted, suitable for direct conversion to a professional PDF.`
     
 
     const response = await ai.models.generateContent({

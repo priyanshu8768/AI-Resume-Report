@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router'
 import { useAuth } from '../hooks/useAuth.js'
+import toast from 'react-hot-toast'
 
 export const Register = () => {
 
@@ -13,13 +14,22 @@ export const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await handleRegister({ username, email, password })
-        navigate('/login')
+        
+        if(!username || !email || !password){
+            toast.error("Please fill in all fields")
+            return
+        }
+        
+        const result = await handleRegister({ username, email, password })
+        
+        if(result instanceof Error || (result && result.response)){
+            toast.error(result?.response?.data?.message || "Registration failed")
+        } else {
+            toast.success("Successfully registered! Please login.")
+            navigate('/login')
+        }
     }
 
-    if (loading) {
-        return (<main><h1>Loading......</h1></main>)
-    }
 
     return (
         <main>
@@ -58,7 +68,9 @@ export const Register = () => {
                         />
                     </div>
 
-                    <button className='button primary-button'>Register</button>
+                    <button className='button primary-button' disabled={loading}>
+                        {loading ? <><span className="spinner"></span>Registering...</> : 'Register'}
+                    </button>
                 </form>
 
                 <p>Already have an account? <Link to={'/login'}>Login</Link></p>

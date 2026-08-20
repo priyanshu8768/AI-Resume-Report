@@ -8,14 +8,15 @@ A full-stack AI-driven interview preparation platform with a React/Vite frontend
 - Sends resume, self-description, and job description to Google Gemini via `@google/genai`.
 - Generates a structured interview report JSON with match score, technical questions, behavioral questions, skill gaps, and a preparation plan.
 - Stores interview reports in MongoDB and serves them through authenticated Express APIs.
-- Provides a React dashboard to view reports, preview recent reports, and download an AI-generated PDF resume using Puppeteer.
+- Provides a React dashboard to view reports, preview recent reports, and generate a compact, single-page PDF resume using client-side `html2pdf.js`.
+- Features an interactive UX with inline loading states and smooth toast notifications for authentication and form validation.
 
 ## Tech stack
 
-- Frontend: React 19, Vite, React Router, Axios, Sass
+- Frontend: React 19, Vite, React Router, Axios, Sass, `html2pdf.js`, `react-hot-toast`
 - Backend: Node.js, Express, MongoDB, Mongoose, JWT cookie auth, Multer
 - AI: Google GenAI (`gemini-3.6-flash`) with JSON schema validation
-- PDF: `pdf-parse` resume text extraction, Puppeteer HTML-to-PDF conversion
+- PDF: `pdf-parse` resume text extraction, client-side PDF generation
 - Dev tools: ESLint, dotenv, CORS, bcryptjs
 
 ## File structure

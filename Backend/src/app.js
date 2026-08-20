@@ -20,7 +20,7 @@ app.use(cors({
         const frontendUrl = process.env.Frontend_URL ? process.env.Frontend_URL.replace(/\/$/, '') : null;
         const allowed = [
             frontendUrl,
-            'http://localhost:5173',
+            'http://localhost:5174',
         ].filter(Boolean);
         if (!origin || allowed.includes(origin)) {
             callback(null, true);

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate , Link } from 'react-router'
 import "../auth.form.scss" 
 import { useAuth } from '../hooks/useAuth.js'
+import toast from 'react-hot-toast'
 
 
 const Login = ()=>{
@@ -16,13 +17,22 @@ const Login = ()=>{
 
     const handleSubmit= async (e)=>{
         e.preventDefault()
-        await handleLogin({email, password})
-        navigate('/')
+        if(!email || !password){
+            toast.error("Please fill in all fields")
+            return
+        }
+        
+        const result = await handleLogin({email, password})
+        
+        // useAuth returns the error if it fails, otherwise undefined or null
+        if(result instanceof Error || (result && result.response)){
+            toast.error(result?.response?.data?.message || "Invalid email or password")
+        } else {
+            toast.success("Login successful!")
+            navigate('/')
+        }
     }
     
-    if (loading){
-        return ( <main><h1>Loading......</h1></main> )
-    }
 
     return(
         <main>
@@ -43,7 +53,9 @@ const Login = ()=>{
                          type="password" id='password' name='password' placeholder='Enter password' />
                     </div>
 
-                    <button className='button primary-button'>Login</button>
+                    <button className='button primary-button' disabled={loading}>
+                        {loading ? <><span className="spinner"></span>Logging in...</> : 'Login'}
+                    </button>
                 </form>
 
                 <p>Don't have an account? <Link to={"/register"}>Register</Link></p>

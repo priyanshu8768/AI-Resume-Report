@@ -31,14 +31,7 @@ const Home = () => {
     fetchReports();
   }, [getAllReports]);
 
-  if(loading){
-    return (
-      <main className="loading-screen">
-        <div className="loading-spinner"></div>
-        <p className="loading-text">Generating your interview report...</p>
-      </main>
-    )
-  }
+
 
   const handleResumeChange = (event) => {
     const file = event.target.files?.[0];
@@ -148,8 +141,13 @@ const Home = () => {
             <button
               onClick={handleGenerateReport}
               className="button primary-button generate-btn"
+              disabled={loading}
             >
-              <span>⚡</span> Generate Interview Report
+              {loading ? (
+                <><span className="spinner"></span>Generating...</>
+              ) : (
+                <><span>⚡</span> Generate Interview Report</>
+              )}
             </button>
             <span className="generate-note">AI takes ~30s to generate your report</span>
           </div>

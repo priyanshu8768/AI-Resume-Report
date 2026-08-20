@@ -73,7 +73,7 @@ export const useInterview = () => {
             response = await getResumePdf(interviewReportId);
             
             const opt = {
-                margin: 10,
+                margin: 4,
                 filename: `resume_${interviewReportId}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2 },
